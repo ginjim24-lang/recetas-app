@@ -30,6 +30,15 @@ class RecetaView:
         for indice, paso in enumerate(receta.pasos, start=1):
             print(f"  {indice}. {paso}")
 
+    def mostrar_lista_compra(self, recetas: list[Receta], ingredientes: list[str]) -> None:
+        print("\n=== Lista de la compra ===")
+        print("Recetas incluidas:")
+        for receta in recetas:
+            print(f"  - {receta.nombre}")
+        print("\nIngredientes necesarios:")
+        for ingrediente in ingredientes:
+            print(f"  [ ] {ingrediente}")
+
     def pedir_lista(self, etiqueta: str) -> list[str]:
         print(f"{etiqueta} (una por línea, línea vacía para terminar):")
         items = []

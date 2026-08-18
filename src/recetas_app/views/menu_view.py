@@ -8,7 +8,8 @@ class MenuView:
         "6": "Eliminar receta",
         "7": "Marcar/desmarcar favorita",
         "8": "Buscar recetas",
-        "9": "Salir",
+        "9": "Generar lista de la compra",
+        "10": "Salir",
     }
 
     OPCIONES_BUSQUEDA = {

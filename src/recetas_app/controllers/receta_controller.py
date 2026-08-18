@@ -1,3 +1,4 @@
+from recetas_app.models.lista_compra import generar_lista_compra
 from recetas_app.models.receta import Receta, RecetaInvalidaError
 from recetas_app.models.receta_repository import RecetaNoEncontradaError, RecetaRepository
 from recetas_app.views.menu_view import MenuView
@@ -25,10 +26,11 @@ class RecetaController:
             "6": self._eliminar,
             "7": self._marcar_favorita,
             "8": self._buscar,
+            "9": self._generar_lista_compra,
         }
         while True:
             opcion = self._menu_view.mostrar_menu_principal()
-            if opcion == "9":
+            if opcion == "10":
                 self._receta_view.mostrar_mensaje("¡Hasta luego!")
                 break
             accion = acciones.get(opcion)
@@ -126,6 +128,26 @@ class RecetaController:
             self._receta_view.mostrar_mensaje(f"'{receta.nombre}' marcada como favorita.")
         else:
             self._receta_view.mostrar_mensaje(f"'{receta.nombre}' desmarcada como favorita.")
+
+    def _generar_lista_compra(self) -> None:
+        ids = self._receta_view.pedir_lista("Ids de las recetas para la lista de la compra")
+        if not ids:
+            self._receta_view.mostrar_error("Debes indicar al menos un id de receta.")
+            return
+
+        recetas = []
+        for receta_id in ids:
+            try:
+                recetas.append(self._repo.obtener(receta_id))
+            except RecetaNoEncontradaError:
+                self._receta_view.mostrar_error(f"No existe una receta con id {receta_id}.")
+
+        if not recetas:
+            self._receta_view.mostrar_error("No se encontró ninguna receta válida.")
+            return
+
+        ingredientes = generar_lista_compra(recetas)
+        self._receta_view.mostrar_lista_compra(recetas, ingredientes)
 
     def _buscar(self) -> None:
         criterio = self._menu_view.mostrar_menu_busqueda()

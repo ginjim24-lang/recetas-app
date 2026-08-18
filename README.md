@@ -33,8 +33,9 @@ uv run recetas-app
 ```
 
 Muestra un menú interactivo para listar, ver, crear, editar, eliminar y buscar recetas,
-además de marcar/desmarcar recetas como favoritas y listar solo las favoritas. La
-categoría de cada receta se elige de una lista predefinida (`Receta.CATEGORIAS`).
+además de marcar/desmarcar recetas como favoritas, listar solo las favoritas y generar
+una lista de la compra combinando los ingredientes de varias recetas (indicando sus
+ids). La categoría de cada receta se elige de una lista predefinida (`Receta.CATEGORIAS`).
 Las recetas se guardan en `data/recetas.json`.
 
 ## Tests
