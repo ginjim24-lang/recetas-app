@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block titulo %}Favoritas — Recipe Collection{% endblock %}
+{% block contenido %}
+<section class="page-header">
+  <p class="eyebrow">Tu selección</p>
+  <h1>Recetas favoritas</h1>
+  <p class="page-header__lead">Las recetas que has marcado con ★, siempre a un clic de distancia.</p>
+</section>
+
+<section class="page-body">
+  {% include "_tabla_recetas.html" %}
+</section>
+{% endblock %}

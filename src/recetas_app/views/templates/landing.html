@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block titulo %}Recipe Collection — Cocina gourmet con estilo{% endblock %}
+{% block contenido %}
+<section class="hero">
+  <div class="hero__content">
+    <p class="eyebrow">Cocina · Gastronomía · Inspiración</p>
+    <h1>Recipe Collection</h1>
+    <p class="hero__subtitle">
+      Descubre, guarda y comparte recetas con el alma de la cocina gourmet.
+      De tu despensa a la mesa, con estilo y sabor en cada paso.
+    </p>
+    <div class="hero__actions">
+      <a class="btn btn--primary btn--lg" href="{{ url_for('recetas.listar') }}">
+        Explorar Recetas <span aria-hidden="true">→</span>
+      </a>
+      <a class="btn btn--ghost btn--lg" href="{{ url_for('recetas.crear') }}">
+        Añadir una receta
+      </a>
+    </div>
+  </div>
+
+  <div class="hero__art" aria-hidden="true">
+    <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="240" cy="240" r="220" class="art-ring"/>
+      <circle cx="240" cy="240" r="172" class="art-plate-outer"/>
+      <circle cx="240" cy="240" r="150" class="art-plate-inner"/>
+
+      <path d="M148 152 Q158 108 147 76" class="art-steam"/>
+      <path d="M190 140 Q202 92 189 56" class="art-steam"/>
+      <path d="M232 150 Q246 102 233 70" class="art-steam"/>
+
+      <ellipse cx="205" cy="232" rx="72" ry="44" class="art-food-main"/>
+      <ellipse cx="278" cy="256" rx="52" ry="36" class="art-food-side"/>
+      <circle cx="232" cy="192" r="20" class="art-food-egg"/>
+
+      <g transform="translate(76,118) rotate(-16)">
+        <rect x="-4" y="18" width="8" height="150" rx="4" class="art-utensil"/>
+        <path d="M-14 18 v-42 M-4.5 18 v-48 M5 18 v-48 M14.5 18 v-42" class="art-utensil-lines"/>
+      </g>
+      <g transform="translate(404,128) rotate(16)">
+        <rect x="-4" y="46" width="8" height="118" rx="4" class="art-utensil"/>
+        <path d="M-10 46 Q0 -26 20 46 Z" class="art-utensil"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="categorias">
+  <div class="section-heading">
+    <p class="eyebrow">Explora</p>
+    <h2>Encuentra tu próxima receta favorita</h2>
+  </div>
+
+  <div class="categoria-grid">
+    <a class="categoria-card" href="{{ url_for('recetas.listar') }}">
+      <span class="categoria-card__icon" aria-hidden="true">🥐</span>
+      <h3>Desayunos</h3>
+      <p>Empieza el día con energía y buen sabor.</p>
+    </a>
+    <a class="categoria-card" href="{{ url_for('recetas.listar') }}">
+      <span class="categoria-card__icon" aria-hidden="true">🥗</span>
+      <h3>Almuerzos</h3>
+      <p>Platos frescos y equilibrados para el mediodía.</p>
+    </a>
+    <a class="categoria-card" href="{{ url_for('recetas.listar') }}">
+      <span class="categoria-card__icon" aria-hidden="true">🍲</span>
+      <h3>Cenas</h3>
+      <p>Recetas reconfortantes para cerrar el día.</p>
+    </a>
+    <a class="categoria-card" href="{{ url_for('recetas.listar') }}">
+      <span class="categoria-card__icon" aria-hidden="true">🍰</span>
+      <h3>Postres</h3>
+      <p>El toque dulce que nunca puede faltar.</p>
+    </a>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="cta-band__inner">
+    <h2>¿Tienes una receta especial?</h2>
+    <p>Guárdala en tu colección personal y encuéntrala siempre que la necesites.</p>
+    <a class="btn btn--secondary btn--lg" href="{{ url_for('recetas.crear') }}">Añadir receta</a>
+  </div>
+</section>
+{% endblock %}

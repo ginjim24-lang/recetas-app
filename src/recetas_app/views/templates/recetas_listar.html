@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block titulo %}Recetas — Recipe Collection{% endblock %}
+{% block contenido %}
+<section class="page-header">
+  <p class="eyebrow">Colección</p>
+  <h1>Todas las recetas</h1>
+  <p class="page-header__lead">Explora cada receta guardada, marca tus favoritas y vuelve por más inspiración.</p>
+</section>
+
+<section class="page-body">
+  {% include "_tabla_recetas.html" %}
+</section>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block titulo %}Nueva receta — Recipe Collection{% endblock %}
+{% block contenido %}
+<section class="page-header">
+  <p class="eyebrow">Comparte</p>
+  <h1>Crear receta</h1>
+  <p class="page-header__lead">Añade una nueva receta a tu colección personal.</p>
+</section>
+
+<section class="page-body page-body--form">
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+  <form method="post" class="formulario-receta">
+    <label>
+      Nombre
+      <input type="text" name="nombre" value="{{ valores.get('nombre', '') }}" required>
+    </label>
+
+    <label>
+      Categoría
+      <select name="categoria" required>
+        {% for categoria in categorias %}
+        <option value="{{ categoria }}" {% if valores.get('categoria') == categoria %}selected{% endif %}>
+          {{ categoria }}
+        </option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <label>
+      Ingredientes (uno por línea)
+      <textarea name="ingredientes" rows="5" placeholder="200 g harina&#10;3 huevos">{{ valores.get('ingredientes', '') }}</textarea>
+    </label>
+
+    <label>
+      Pasos (uno por línea)
+      <textarea name="pasos" rows="5" placeholder="Precalentar el horno&#10;Mezclar los ingredientes">{{ valores.get('pasos', '') }}</textarea>
+    </label>
+
+    <div class="formulario-receta__fila">
+      <label>
+        Tiempo de preparación (min)
+        <input type="number" name="tiempo_preparacion_min" min="1" value="{{ valores.get('tiempo_preparacion_min', '') }}">
+      </label>
+
+      <label>
+        Porciones
+        <input type="number" name="porciones" min="1" value="{{ valores.get('porciones', '') }}">
+      </label>
+    </div>
+
+    <button type="submit" class="btn btn--primary">Crear receta</button>
+  </form>
+</section>
+{% endblock %}

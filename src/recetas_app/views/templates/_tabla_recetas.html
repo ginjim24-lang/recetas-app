@@ -1,0 +1,36 @@
+{% if recetas %}
+<div class="tabla-wrapper">
+  <table class="tabla-recetas">
+    <thead>
+      <tr>
+        <th class="col-fav"></th>
+        <th>Nombre</th>
+        <th>Categoría</th>
+        <th>Tiempo</th>
+        <th>Porciones</th>
+        <th class="col-accion"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for receta in recetas %}
+      <tr>
+        <td class="col-fav">{% if receta.favorita %}<span class="estrella" title="Favorita">★</span>{% endif %}</td>
+        <td class="col-nombre">{{ receta.nombre }}</td>
+        <td><span class="badge">{{ receta.categoria }}</span></td>
+        <td>{{ receta.tiempo_preparacion_min }} min</td>
+        <td>{{ receta.porciones }}</td>
+        <td class="col-accion">
+          <form method="post" action="{{ url_for('recetas.marcar_favorita', receta_id=receta.id) }}">
+            <button type="submit" class="btn-fav {{ 'is-active' if receta.favorita else '' }}">
+              {{ 'Quitar de favoritas' if receta.favorita else 'Marcar favorita' }}
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<p class="vacio">No hay recetas para mostrar todavía.</p>
+{% endif %}

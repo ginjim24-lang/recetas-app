@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Recipe Collection{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="{{ 'is-landing' if request.endpoint == 'recetas.index' else '' }}">
+  <header class="site-nav">
+    <div class="site-nav__inner">
+      <a class="brand" href="{{ url_for('recetas.index') }}">
+        <span class="brand__mark" aria-hidden="true">🫒</span>
+        Recipe Collection
+      </a>
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+      <label for="nav-toggle" class="nav-toggle__button" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </label>
+
+      <nav class="nav-links">
+        <a href="{{ url_for('recetas.index') }}" class="{{ 'is-active' if request.endpoint == 'recetas.index' else '' }}">Inicio</a>
+        <a href="{{ url_for('recetas.listar') }}" class="{{ 'is-active' if request.endpoint == 'recetas.listar' else '' }}">Recetas</a>
+        <a href="{{ url_for('recetas.favoritas') }}" class="{{ 'is-active' if request.endpoint == 'recetas.favoritas' else '' }}">Favoritas</a>
+        <a href="{{ url_for('recetas.crear') }}" class="nav-cta">Nueva receta</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {% block contenido %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <p>Recipe Collection &mdash; hecho con cariño para amantes de la cocina gourmet.</p>
+  </footer>
+</body>
+</html>
