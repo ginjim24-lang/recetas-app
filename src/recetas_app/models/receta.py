@@ -11,12 +11,23 @@ class RecetaInvalidaError(ValueError):
 
 @dataclass
 class Receta:
+    CATEGORIAS = [
+        "Entrada",
+        "Plato principal",
+        "Postre",
+        "Bebida",
+        "Snack",
+        "Vegano",
+        "Vegetariano",
+    ]
+
     nombre: str
     categoria: str
     ingredientes: list[str]
     pasos: list[str]
     tiempo_preparacion_min: int
     porciones: int
+    favorita: bool = False
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
     fecha_creacion: str = field(
         default_factory=lambda: datetime.now(timezone.utc).isoformat()
@@ -27,8 +38,10 @@ class Receta:
 
         if not self.nombre or not self.nombre.strip():
             errores.append("El nombre es obligatorio.")
-        if not self.categoria or not self.categoria.strip():
-            errores.append("La categoría es obligatoria.")
+        if self.categoria not in self.CATEGORIAS:
+            errores.append(
+                f"La categoría debe ser una de: {', '.join(self.CATEGORIAS)}."
+            )
         if not self.ingredientes:
             errores.append("Debe indicar al menos un ingrediente.")
         if not self.pasos:
@@ -50,6 +63,7 @@ class Receta:
             "pasos": self.pasos,
             "tiempo_preparacion_min": self.tiempo_preparacion_min,
             "porciones": self.porciones,
+            "favorita": self.favorita,
             "fecha_creacion": self.fecha_creacion,
         }
 
@@ -63,5 +77,6 @@ class Receta:
             pasos=list(data["pasos"]),
             tiempo_preparacion_min=data["tiempo_preparacion_min"],
             porciones=data["porciones"],
+            favorita=data.get("favorita", False),
             fecha_creacion=data["fecha_creacion"],
         )

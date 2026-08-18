@@ -83,3 +83,15 @@ class RecetaRepository:
     def buscar_por_categoria(self, texto: str) -> list[Receta]:
         texto = texto.lower()
         return [r for r in self._cargar() if texto in r.categoria.lower()]
+
+    def listar_favoritas(self) -> list[Receta]:
+        return [r for r in self._cargar() if r.favorita]
+
+    def marcar_favorita(self, receta_id: str, favorita: bool) -> Receta:
+        recetas = self._cargar()
+        for receta in recetas:
+            if receta.id == receta_id:
+                receta.favorita = favorita
+                self._guardar(recetas)
+                return receta
+        raise RecetaNoEncontradaError(receta_id)

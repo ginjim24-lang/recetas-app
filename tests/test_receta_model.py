@@ -51,6 +51,17 @@ def test_porciones_no_positivas_es_invalido():
         receta.validate()
 
 
+def test_categoria_no_predefinida_es_invalida():
+    receta = _receta_valida(categoria="Categoría inventada")
+    with pytest.raises(RecetaInvalidaError):
+        receta.validate()
+
+
+def test_favorita_por_defecto_es_false():
+    receta = _receta_valida()
+    assert receta.favorita is False
+
+
 def test_to_dict_y_from_dict_son_simetricos():
     receta = _receta_valida()
     reconstruida = Receta.from_dict(receta.to_dict())

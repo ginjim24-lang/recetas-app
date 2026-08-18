@@ -6,18 +6,20 @@ class RecetaView:
         if not recetas:
             print("No hay recetas guardadas.")
             return
-        print(f"\n{'ID':<36} {'Nombre':<25} {'Categoría':<15} Tiempo (min)")
-        print("-" * 90)
+        print(f"\n{'':<2}{'ID':<36} {'Nombre':<25} {'Categoría':<15} Tiempo (min)")
+        print("-" * 92)
         for receta in recetas:
+            marca = "★ " if receta.favorita else "  "
             print(
-                f"{receta.id:<36} {receta.nombre:<25} "
+                f"{marca}{receta.id:<36} {receta.nombre:<25} "
                 f"{receta.categoria:<15} {receta.tiempo_preparacion_min}"
             )
 
     def mostrar_detalle(self, receta: Receta) -> None:
-        print(f"\n=== {receta.nombre} ===")
+        print(f"\n=== {receta.nombre} {'★' if receta.favorita else ''} ===")
         print(f"Id: {receta.id}")
         print(f"Categoría: {receta.categoria}")
+        print(f"Favorita: {'Sí' if receta.favorita else 'No'}")
         print(f"Tiempo de preparación: {receta.tiempo_preparacion_min} min")
         print(f"Porciones: {receta.porciones}")
         print(f"Creada: {receta.fecha_creacion}")
@@ -48,6 +50,16 @@ class RecetaView:
 
     def pedir_texto(self, etiqueta: str) -> str:
         return input(f"{etiqueta}: ").strip()
+
+    def pedir_categoria(self, categorias: list[str]) -> str:
+        print("Categorías disponibles:")
+        for indice, categoria in enumerate(categorias, start=1):
+            print(f"  {indice}) {categoria}")
+        while True:
+            valor = input("Elige una categoría (número): ").strip()
+            if valor.isdigit() and 1 <= int(valor) <= len(categorias):
+                return categorias[int(valor) - 1]
+            print("Opción no válida. Inténtalo de nuevo.")
 
     def confirmar(self, mensaje: str) -> bool:
         respuesta = input(f"{mensaje} (s/n): ").strip().lower()

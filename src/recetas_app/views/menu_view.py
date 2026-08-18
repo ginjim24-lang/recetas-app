@@ -1,12 +1,14 @@
 class MenuView:
     OPCIONES_PRINCIPAL = {
         "1": "Listar recetas",
-        "2": "Ver receta",
-        "3": "Crear receta",
-        "4": "Editar receta",
-        "5": "Eliminar receta",
-        "6": "Buscar recetas",
-        "7": "Salir",
+        "2": "Listar favoritas",
+        "3": "Ver receta",
+        "4": "Crear receta",
+        "5": "Editar receta",
+        "6": "Eliminar receta",
+        "7": "Marcar/desmarcar favorita",
+        "8": "Buscar recetas",
+        "9": "Salir",
     }
 
     OPCIONES_BUSQUEDA = {

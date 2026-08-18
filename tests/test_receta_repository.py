@@ -95,3 +95,27 @@ def test_buscar_por_categoria(repo):
     repo.crear(_receta(categoria="Postre"))
     resultados = repo.buscar_por_categoria("postre")
     assert len(resultados) == 1
+
+
+def test_listar_favoritas(repo):
+    favorita = repo.crear(_receta(nombre="Ensalada César", favorita=True))
+    repo.crear(_receta(nombre="Sopa de tomate"))
+    resultados = repo.listar_favoritas()
+    assert resultados == [favorita]
+
+
+def test_marcar_favorita(repo):
+    receta = repo.crear(_receta())
+    assert receta.favorita is False
+
+    actualizada = repo.marcar_favorita(receta.id, True)
+    assert actualizada.favorita is True
+    assert repo.obtener(receta.id).favorita is True
+
+    repo.marcar_favorita(receta.id, False)
+    assert repo.obtener(receta.id).favorita is False
+
+
+def test_marcar_favorita_id_inexistente_lanza_error(repo):
+    with pytest.raises(RecetaNoEncontradaError):
+        repo.marcar_favorita("id-inexistente", True)
