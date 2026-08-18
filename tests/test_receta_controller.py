@@ -33,12 +33,16 @@ class RecetaViewStub:
         self.listados = []
         self.detalles = []
         self.listas_compra = []
+        self.nutriciones = []
 
     def mostrar_listado(self, recetas):
         self.listados.append(recetas)
 
     def mostrar_detalle(self, receta):
         self.detalles.append(receta)
+
+    def mostrar_nutricion(self, resumen):
+        self.nutriciones.append(resumen)
 
     def mostrar_lista_compra(self, recetas, ingredientes):
         self.listas_compra.append((recetas, ingredientes))
@@ -141,6 +145,30 @@ def test_ver_receta_inexistente_muestra_error(tmp_path):
     controller.ejecutar()
 
     assert any("no existe" in e.lower() for e in receta_view.errores)
+
+
+def test_ver_receta_muestra_detalle_y_nutricion(tmp_path):
+    repo = RecetaRepository(tmp_path / "recetas.json")
+    receta = repo.crear(
+        Receta(
+            nombre="Tostada",
+            categoria="Entrada",
+            ingredientes=["100 g harina"],
+            pasos=["Hornear"],
+            tiempo_preparacion_min=10,
+            porciones=1,
+        )
+    )
+
+    menu_view = MenuViewStub(opciones=["3", "10"], ids=[receta.id])
+    receta_view = RecetaViewStub()
+    controller = RecetaController(repo, menu_view, receta_view)
+
+    controller.ejecutar()
+
+    assert receta_view.detalles == [receta]
+    assert len(receta_view.nutriciones) == 1
+    assert receta_view.nutriciones[0].kcal_total > 0
 
 
 def test_marcar_y_desmarcar_favorita(tmp_path):

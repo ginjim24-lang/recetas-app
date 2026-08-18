@@ -118,3 +118,48 @@ def test_marcar_favorita_id_inexistente_no_falla(cliente):
     client, _ = cliente
     resp = client.post("/recetas/id-inexistente/favorita")
     assert resp.status_code == 302
+
+
+def test_ver_receta_muestra_detalle_y_nutricion(cliente):
+    client, repo = cliente
+    receta = repo.crear(
+        Receta(
+            nombre="Tostada de aguacate",
+            categoria="Entrada",
+            ingredientes=["1 pan", "1 aguacate"],
+            pasos=["Tostar el pan", "Aplastar el aguacate"],
+            tiempo_preparacion_min=5,
+            porciones=1,
+        )
+    )
+
+    resp = client.get(f"/recetas/{receta.id}")
+    assert resp.status_code == 200
+    cuerpo = resp.get_data(as_text=True)
+    assert "Tostada de aguacate" in cuerpo
+    assert "Información nutricional" in cuerpo
+    assert "kcal" in cuerpo
+
+
+def test_ver_receta_inexistente_devuelve_404(cliente):
+    client, _ = cliente
+    resp = client.get("/recetas/id-inexistente")
+    assert resp.status_code == 404
+    assert "no encontrada" in resp.get_data(as_text=True).lower()
+
+
+def test_listado_enlaza_a_detalle_de_receta(cliente):
+    client, repo = cliente
+    receta = repo.crear(
+        Receta(
+            nombre="Sopa",
+            categoria="Entrada",
+            ingredientes=["Agua"],
+            pasos=["Cocer"],
+            tiempo_preparacion_min=10,
+            porciones=2,
+        )
+    )
+
+    resp = client.get("/recetas")
+    assert f'href="/recetas/{receta.id}"' in resp.get_data(as_text=True)

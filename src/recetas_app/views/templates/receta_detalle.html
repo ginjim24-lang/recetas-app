@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block titulo %}{{ receta.nombre }} — Recipe Collection{% endblock %}
+{% block contenido %}
+<section class="page-header">
+  <p class="eyebrow">{{ receta.categoria }}</p>
+  <h1>{{ receta.nombre }} {% if receta.favorita %}<span class="estrella">★</span>{% endif %}</h1>
+  <p class="page-header__lead">{{ receta.tiempo_preparacion_min }} min &middot; {{ receta.porciones }} porciones</p>
+</section>
+
+<section class="page-body page-body--detalle">
+  <div class="receta-detalle">
+    <div class="receta-detalle__principal">
+      <div class="receta-detalle__bloque">
+        <h2>Ingredientes</h2>
+        <ul class="lista-simple">
+          {% for ingrediente in receta.ingredientes %}
+          <li>{{ ingrediente }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="receta-detalle__bloque">
+        <h2>Pasos</h2>
+        <ol class="lista-pasos">
+          {% for paso in receta.pasos %}
+          <li>{{ paso }}</li>
+          {% endfor %}
+        </ol>
+      </div>
+
+      <form method="post" action="{{ url_for('recetas.marcar_favorita', receta_id=receta.id) }}">
+        <button type="submit" class="btn-fav {{ 'is-active' if receta.favorita else '' }}">
+          {{ 'Quitar de favoritas' if receta.favorita else 'Marcar favorita' }}
+        </button>
+      </form>
+    </div>
+
+    <aside class="nutricion-card">
+      <h2>Información nutricional</h2>
+      <p class="nutricion-nota">
+        Estimación calculada a partir de una base de datos de composición de
+        alimentos, según los ingredientes de la receta.
+      </p>
+
+      <p class="nutricion-subtitulo">Por porción</p>
+      <div class="nutricion-grid">
+        <div class="nutricion-item">
+          <span class="nutricion-valor">{{ nutricion.kcal_por_porcion }}</span>
+          <span class="nutricion-etiqueta">kcal</span>
+        </div>
+        <div class="nutricion-item">
+          <span class="nutricion-valor">{{ nutricion.proteinas_g_por_porcion }} g</span>
+          <span class="nutricion-etiqueta">Proteínas</span>
+        </div>
+        <div class="nutricion-item">
+          <span class="nutricion-valor">{{ nutricion.grasas_g_por_porcion }} g</span>
+          <span class="nutricion-etiqueta">Grasas</span>
+        </div>
+        <div class="nutricion-item">
+          <span class="nutricion-valor">{{ nutricion.carbohidratos_g_por_porcion }} g</span>
+          <span class="nutricion-etiqueta">Carbohidratos</span>
+        </div>
+      </div>
+
+      <p class="nutricion-total">
+        Total de la receta ({{ receta.porciones }} porciones):
+        {{ nutricion.kcal_total }} kcal &middot;
+        {{ nutricion.proteinas_g_total }} g proteínas &middot;
+        {{ nutricion.grasas_g_total }} g grasas &middot;
+        {{ nutricion.carbohidratos_g_total }} g carbohidratos
+      </p>
+
+      {% if nutricion.ingredientes_no_reconocidos %}
+      <p class="nutricion-aviso">
+        No se pudo estimar el aporte de: {{ nutricion.ingredientes_no_reconocidos | join(', ') }}
+      </p>
+      {% endif %}
+    </aside>
+  </div>
+</section>
+{% endblock %}

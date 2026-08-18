@@ -1,4 +1,5 @@
 from recetas_app.models.lista_compra import generar_lista_compra
+from recetas_app.models.nutricion import calcular_nutricion_receta
 from recetas_app.models.receta import Receta, RecetaInvalidaError
 from recetas_app.models.receta_repository import RecetaNoEncontradaError, RecetaRepository
 from recetas_app.views.menu_view import MenuView
@@ -55,6 +56,7 @@ class RecetaController:
             self._receta_view.mostrar_error("No existe una receta con ese id.")
             return
         self._receta_view.mostrar_detalle(receta)
+        self._receta_view.mostrar_nutricion(calcular_nutricion_receta(receta))
 
     def _pedir_datos_receta(self) -> Receta:
         nombre = self._receta_view.pedir_texto("Nombre")

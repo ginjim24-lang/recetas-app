@@ -15,7 +15,7 @@
       {% for receta in recetas %}
       <tr>
         <td class="col-fav">{% if receta.favorita %}<span class="estrella" title="Favorita">★</span>{% endif %}</td>
-        <td class="col-nombre">{{ receta.nombre }}</td>
+        <td class="col-nombre"><a href="{{ url_for('recetas.ver', receta_id=receta.id) }}">{{ receta.nombre }}</a></td>
         <td><span class="badge">{{ receta.categoria }}</span></td>
         <td>{{ receta.tiempo_preparacion_min }} min</td>
         <td>{{ receta.porciones }}</td>

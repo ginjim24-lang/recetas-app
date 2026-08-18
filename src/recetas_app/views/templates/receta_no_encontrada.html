@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block titulo %}Receta no encontrada — Recipe Collection{% endblock %}
+{% block contenido %}
+<section class="page-header">
+  <p class="eyebrow">Ups</p>
+  <h1>Receta no encontrada</h1>
+  <p class="page-header__lead">No existe ninguna receta con el id <code>{{ receta_id }}</code>.</p>
+  <a class="btn btn--primary" href="{{ url_for('recetas.listar') }}">Volver al listado</a>
+</section>
+{% endblock %}

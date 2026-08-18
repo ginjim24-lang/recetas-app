@@ -1,3 +1,4 @@
+from recetas_app.models.nutricion import ResumenNutricional
 from recetas_app.models.receta import Receta
 
 
@@ -29,6 +30,26 @@ class RecetaView:
         print("\nPasos:")
         for indice, paso in enumerate(receta.pasos, start=1):
             print(f"  {indice}. {paso}")
+
+    def mostrar_nutricion(self, resumen: ResumenNutricional) -> None:
+        print("\nInformación nutricional (estimada):")
+        print(
+            f"  Total receta: {resumen.kcal_total} kcal | "
+            f"{resumen.proteinas_g_total} g proteínas | "
+            f"{resumen.grasas_g_total} g grasas | "
+            f"{resumen.carbohidratos_g_total} g carbohidratos"
+        )
+        print(
+            f"  Por porción:  {resumen.kcal_por_porcion} kcal | "
+            f"{resumen.proteinas_g_por_porcion} g proteínas | "
+            f"{resumen.grasas_g_por_porcion} g grasas | "
+            f"{resumen.carbohidratos_g_por_porcion} g carbohidratos"
+        )
+        if resumen.ingredientes_no_reconocidos:
+            print(
+                "  No se pudo estimar el aporte de: "
+                + ", ".join(resumen.ingredientes_no_reconocidos)
+            )
 
     def mostrar_lista_compra(self, recetas: list[Receta], ingredientes: list[str]) -> None:
         print("\n=== Lista de la compra ===")

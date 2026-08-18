@@ -1,5 +1,6 @@
 from flask import Blueprint, redirect, render_template, request, url_for
 
+from recetas_app.models.nutricion import calcular_nutricion_receta
 from recetas_app.models.receta import Receta, RecetaInvalidaError
 from recetas_app.models.receta_repository import RecetaNoEncontradaError, RecetaRepository
 
@@ -18,6 +19,15 @@ def crear_blueprint(repository: RecetaRepository) -> Blueprint:
     @bp.route("/favoritas")
     def favoritas():
         return render_template("favoritas.html", recetas=repository.listar_favoritas())
+
+    @bp.route("/recetas/<receta_id>")
+    def ver(receta_id):
+        try:
+            receta = repository.obtener(receta_id)
+        except RecetaNoEncontradaError:
+            return render_template("receta_no_encontrada.html", receta_id=receta_id), 404
+        nutricion = calcular_nutricion_receta(receta)
+        return render_template("receta_detalle.html", receta=receta, nutricion=nutricion)
 
     @bp.route("/recetas/nueva", methods=["GET", "POST"])
     def crear():
