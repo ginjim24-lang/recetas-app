@@ -246,31 +246,25 @@ img, svg {
   gap: 1rem;
 }
 
-.hero__art svg {
+.hero__art img {
   width: 100%;
   height: auto;
-  filter: drop-shadow(var(--shadow-lg));
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
 }
 
-.art-ring { fill: var(--color-bg-alt); }
-.art-plate-outer { fill: #ffffff; }
-.art-plate-inner { fill: var(--color-bg); }
-.art-food-main { fill: var(--color-terracotta); opacity: 0.9; }
-.art-food-side { fill: var(--color-olive); }
-.art-food-egg { fill: #E8B04B; }
-.art-steam {
-  fill: none;
-  stroke: var(--color-terracotta);
-  stroke-width: 6;
-  stroke-linecap: round;
-  opacity: 0.35;
+.hero__credit {
+  margin-top: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-align: right;
 }
-.art-utensil { fill: var(--color-olive-dark); }
-.art-utensil-lines {
-  fill: none;
-  stroke: var(--color-olive-dark);
-  stroke-width: 6;
-  stroke-linecap: round;
+
+.hero__credit a {
+  color: inherit;
+  text-decoration: underline;
 }
 
 /* ---------- Category cards ---------- */

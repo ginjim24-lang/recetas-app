@@ -19,29 +19,16 @@
     </div>
   </div>
 
-  <div class="hero__art" aria-hidden="true">
-    <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="240" cy="240" r="220" class="art-ring"/>
-      <circle cx="240" cy="240" r="172" class="art-plate-outer"/>
-      <circle cx="240" cy="240" r="150" class="art-plate-inner"/>
-
-      <path d="M148 152 Q158 108 147 76" class="art-steam"/>
-      <path d="M190 140 Q202 92 189 56" class="art-steam"/>
-      <path d="M232 150 Q246 102 233 70" class="art-steam"/>
-
-      <ellipse cx="205" cy="232" rx="72" ry="44" class="art-food-main"/>
-      <ellipse cx="278" cy="256" rx="52" ry="36" class="art-food-side"/>
-      <circle cx="232" cy="192" r="20" class="art-food-egg"/>
-
-      <g transform="translate(76,118) rotate(-16)">
-        <rect x="-4" y="18" width="8" height="150" rx="4" class="art-utensil"/>
-        <path d="M-14 18 v-42 M-4.5 18 v-48 M5 18 v-48 M14.5 18 v-42" class="art-utensil-lines"/>
-      </g>
-      <g transform="translate(404,128) rotate(16)">
-        <rect x="-4" y="46" width="8" height="118" rx="4" class="art-utensil"/>
-        <path d="M-10 46 Q0 -26 20 46 Z" class="art-utensil"/>
-      </g>
-    </svg>
+  <div class="hero__art">
+    <img
+      src="{{ url_for('static', filename='images/hero-plato.jpg') }}"
+      alt="Plato de alta cocina recién preparado, servido con salsa y guarnición"
+      width="1800" height="1200"
+      loading="eager" fetchpriority="high">
+    <p class="hero__credit">
+      Foto: <a href="https://www.flickr.com/photos/prayitnophotography/8469274783/" target="_blank" rel="noopener">Prayitno</a>
+      (<a href="https://creativecommons.org/licenses/by/2.0" target="_blank" rel="noopener">CC BY 2.0</a>)
+    </p>
   </div>
 </section>
 
